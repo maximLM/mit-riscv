@@ -655,3 +655,12 @@ procdump(void)
     printf("\n");
   }
 }
+
+uint64 cnt_free_procs(void) {
+  struct proc *p;
+  uint64 cnt = 0;
+  for (p = proc; p < &proc[NPROC]; ++p) {
+    cnt += p->state != UNUSED;
+  }
+  return cnt;
+}
