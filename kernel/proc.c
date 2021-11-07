@@ -660,7 +660,9 @@ uint64 cnt_free_procs(void) {
   struct proc *p;
   uint64 cnt = 0;
   for (p = proc; p < &proc[NPROC]; ++p) {
+    acquire(&p->lock);
     cnt += p->state != UNUSED;
+    release(&p->lock);
   }
   return cnt;
 }
